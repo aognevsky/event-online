@@ -1,0 +1,47 @@
+<% title "Event «#{@event.title}»" %>
+
+
+Description: <i><%=h @event.description %></i><br />
+Author: <%= link_to h(@event.user.username), user_path(@event.user) %>
+
+<% if logged_in? %>
+  <% if @event.user == current_user %>
+    <p>
+    <%= link_to "Edit", edit_event_path(@event) %> /
+    <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %>
+    </p>
+  <% end %>
+<% end %>
+
+<hr />
+
+<% if logged_in? %>
+  <% if @event.user == current_user %>
+    <p>
+    (форма отправки нового сообщения (сделать ajax!))
+    
+    <% form_for @note do |f| %>
+      <p>
+        <%= f.label :body %><br />
+        <%= f.text_area :body, :rows => 3, :cols => 75 %>
+        <%= f.hidden_field :event_id, :value => @event.id %>
+      </p>
+      <p class="button"><%= f.submit "Post" %></p>
+    <% end %>
+    
+    </p>
+    <hr />
+  <% end %>
+<% end %>
+
+<h2>Replays</h2>
+новые наверху / новые внизу
+<p>
+  <% for note in @event.notes %>
+    <strong><%= note.created_at %></strong>
+    <%= note.body %>
+    <%= link_to "*", edit_note_path(note) %>
+    <%= link_to "–", note, :confirm => 'Are you sure?', :method => :delete %>
+    <br />
+  <% end %>
+</p>

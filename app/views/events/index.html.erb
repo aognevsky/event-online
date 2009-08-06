@@ -1,0 +1,11 @@
+<% title "Events" %>
+
+<% for event in @events %>
+<p>
+  <%= link_to h(event.title), event %><br />
+  <i><%= h event.description %></i>
+  
+</p>
+<% end %>
+
+<p><%= link_to "New Event", new_event_path %></p>

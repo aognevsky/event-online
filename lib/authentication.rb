@@ -33,5 +33,14 @@ module Authentication
       flash[:error] = "You must first log in or sign up before accessing this page."
       redirect_to login_url
     end
+  end  
+  
+  
+  # Refactor this shit!
+  def authority_required
+    e = Event.find(params[:id])
+    unless e.author?(current_user)
+      render :text => "stfu"
+    end
   end
 end

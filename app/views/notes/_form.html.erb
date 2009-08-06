@@ -1,0 +1,12 @@
+<% form_for @note do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :draft %><br />
+    <%= f.check_box :draft %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
